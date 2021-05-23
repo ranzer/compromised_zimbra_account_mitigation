@@ -1,4 +1,4 @@
-# Hacked Zimbra Account Mitigation
+# Compromised Zimbra Account Mitigation
 The **./src/hacked_zimbra_account_mitigation.bash** script, for each provided mail account, updates Zimbra passwords, disables Active Directory authentication and disables failed login lockout policy if necessary.
 
 ### Summary of set up
