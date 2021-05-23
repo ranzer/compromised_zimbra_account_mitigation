@@ -56,7 +56,7 @@ The deploy script is invoked in the following way:
 ```
 
 ### Contribution guidelines ###
-#### Writing tests
+### Writing tests
 New unit tests should be stored inside the **./test/unit** folder.
 Integration tests could be stored under the **./test/integration** folder.
 
