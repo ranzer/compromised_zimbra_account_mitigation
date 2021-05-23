@@ -1,6 +1,8 @@
 # Compromised Zimbra Account Mitigation
 The **./src/hacked_zimbra_account_mitigation.bash** script, for each provided mail account, updates Zimbra passwords, disables Active Directory authentication and disables failed login lockout policy if necessary.
 
+[![Build Status](https://travis-ci.org/ranzer/compromised_zimbra_account_mitigation.svg?branch=main)](https://travis-ci.org/ranzer/compromised_zimbra_account_mitigation)
+
 ### Summary of set up
 If the repository is hosted in Gitlab CI/CD tool then the following step is not required because all required submodule files
 will be fetched during test stage.
