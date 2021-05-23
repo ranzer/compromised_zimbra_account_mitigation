@@ -1,0 +1,44 @@
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+  DEPLOY_SERVER_TEST: $DEPLOY_SERVER_TEST
+  DEPLOY_USER_TEST: $DEPLOY_USER_TEST
+  DEPLOY_SERVER_PROD: $DEPLOY_SERVER_PROD
+  DEPLOY_USER_PROD: $DEPLOY_USER_PROD
+
+stages:
+  - test
+  - deploy
+
+run tests:
+  stage: test
+  script:
+  - ./test/bats/bin/bats ./test/unit/hacked_zimbra_account_mitigation_unit_test.bats
+  tags:
+  - hacked_zimbra_account_mitigation
+
+deploy test:
+  stage: deploy
+  only:
+    - master
+  script:
+    - Destination_Folder="/opt/zimbra/reports/scripts/hacked_zimbra_account_mitigation"
+    - Owner="zimbra"
+    - Group="zimbra"
+    - Octal_Permissions=750
+    - bash ./infrastructure/deploy.bash $DEPLOY_USER_TEST $DEPLOY_SERVER_TEST $Destination_Folder $Owner $Group $Octal_Permissions
+  environment:  test
+  tags: [hacked_zimbra_account_mitigation,bats]
+
+deploy prod:
+  stage: deploy
+  only:
+    - master
+  script:
+    - Destination_Folder="/opt/zimbra/reports/scripts/hacked_zimbra_account_mitigation"
+    - Owner="zimbra"
+    - Group="zimbra"
+    - Octal_Permissions="750"
+    - bash ./Infrastructure/deploy.ps1 $DEPLOY_USER_PROD $DEPLOY_SERVER_PROD $Destination_Folder $Owner $Group $Octal_Permissions
+  environment:  production
+  when: manual
+  tags: [hacked_zimbra_account_mitigation,bats]

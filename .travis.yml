@@ -1,0 +1,27 @@
+language: bash
+dist: xenial
+#addons:
+#  apt:
+#    update: true
+#    packages:
+#    - xz-utils
+#    - pv
+
+env:
+  global:
+  - export PATH="/usr/local/bin:$PATH"
+
+before_install:
+- |
+  if [ "$TRAVIS_OS_NAME" = "linux" ]; then
+    branch=master
+    batstmp="$(mktemp -d bats-core-"${branch}".XXXXX)"
+    pushd "${batstmp}" &> /dev/null || return 11
+    curl -sSLO https://github.com/bats-core/bats-core/archive/"${branch}".zip
+    unzip -qo "${branch}".zip
+    sudo bash "${batstmp}"/bats-core-"${branch}"/install.sh /usr/local
+    popd &> /dev/null || return 12
+  fi
+
+script:
+  - bats $TRAVIS_BUILD_DIR/test/unit/hacked_zimbra_account_mitigation_unit_test.bats
