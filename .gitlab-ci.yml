@@ -38,7 +38,7 @@ deploy prod:
     - Owner="zimbra"
     - Group="zimbra"
     - Octal_Permissions="750"
-    - bash ./Infrastructure/deploy.ps1 $DEPLOY_USER_PROD $DEPLOY_SERVER_PROD $Destination_Folder $Owner $Group $Octal_Permissions
+    - bash ./Infrastructure/deploy.bash $DEPLOY_USER_PROD $DEPLOY_SERVER_PROD $Destination_Folder $Owner $Group $Octal_Permissions
   environment:  production
   when: manual
   tags: [hacked_zimbra_account_mitigation,bats]
